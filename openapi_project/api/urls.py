@@ -10,5 +10,3 @@ router.register('cinemas', CinemasViewSet, basename="cinemas")
 urlpatterns = [
     path(r'', include(router.urls)),
 ]
-
-print(urlpatterns)
