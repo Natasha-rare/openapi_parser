@@ -1,0 +1,135 @@
+swagger: '2.0'
+info:
+  title: API for Cinemas Open Data
+  description: API on Django, that uses django-rest-framework technology for providing
+    opportunity to view information about cinemas in Russia. The api also makes possible
+    to filter results by words in various fields (by using search), or to make strict
+    filter using one or several fields. To see the output of all info oor to do other
+    described actions,you should follow link http://127.0.0.1:8000/api/cinemas/
+  version: v1
+host: localhost:8000
+schemes:
+- http
+basePath: /api
+consumes:
+- application/json
+produces:
+- application/json
+securityDefinitions:
+  Basic:
+    type: basic
+security:
+- Basic: []
+paths:
+  /cinemas/:
+    get:
+      operationId: cinemas_list
+      description: ''
+      parameters:
+      - name: search
+        in: query
+        description: A search term.
+        required: false
+        type: string
+      - name: cinema_name
+        in: query
+        description: cinema_name
+        required: false
+        type: string
+      - name: address
+        in: query
+        description: address
+        required: false
+        type: string
+      - name: description
+        in: query
+        description: description
+        required: false
+        type: string
+      - name: legal_entity
+        in: query
+        description: legal_entity
+        required: false
+        type: string
+      - name: website
+        in: query
+        description: website
+        required: false
+        type: string
+      - name: category
+        in: query
+        description: category
+        required: false
+        type: string
+      - name: inn
+        in: query
+        description: inn
+        required: false
+        type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/CinemasSerilizer'
+      tags:
+      - cinemas
+    parameters: []
+  /cinemas/{id}/:
+    get:
+      operationId: cinemas_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/CinemasSerilizer'
+      tags:
+      - cinemas
+    parameters:
+    - name: id
+      in: path
+      description: A unique integer value identifying this cinemas.
+      required: true
+      type: integer
+definitions:
+  CinemasSerilizer:
+    required:
+    - cinema_name
+    - address
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      cinema_name:
+        title: Cinema name
+        type: string
+        minLength: 1
+      address:
+        title: Address
+        type: string
+        minLength: 1
+      description:
+        title: Description
+        type: string
+        x-nullable: true
+      legal_entity:
+        title: Legal entity
+        type: string
+        x-nullable: true
+      website:
+        title: Website
+        type: string
+        x-nullable: true
+      category:
+        title: Category
+        type: string
+        x-nullable: true
+      inn:
+        title: Inn
+        type: integer
+        x-nullable: true

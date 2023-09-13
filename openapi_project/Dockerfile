@@ -12,8 +12,10 @@ RUN pip install -r requirements.txt
 RUN python parcer.py
 
 RUN python /app/manage.py inspectdb > /app/api/models.py
-COPY admin.py /app/api/admin.py
+RUN python /app/manage.py makemigrations
+RUN python /app/manage.py migrate
+#COPY admin.py /app/api/admin.py
 
 ####
-#EXPOSE 8000
+EXPOSE 8000
 #CMD ["python", "manage.py", "runserver", "localhost:8000"]
